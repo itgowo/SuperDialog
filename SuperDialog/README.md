@@ -35,4 +35,4 @@ data目录文件管理，就这样一个库同时具备web服务器和数据接�
             
 如上代码就构建了一个全功能的Dialog，
 
-![](https://github.com/hnsugar/SuperDialog/blob/master/image/0.png =100*100)
+![](https://github.com/hnsugar/SuperDialog/blob/master/image/0.png){:height="50%" width="50%"}
