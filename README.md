@@ -33,6 +33,15 @@ data目录文件管理，就这样一个库同时具备web服务器和数据接�
             Glide.with(superDialog.getImageView()).load("https://www.baidu.com/img/fnj_96d95207b4a706738f1b8be3b41ea9f3.gif").into(superDialog.getImageView()););
             
             
-如上代码就构建了一个全功能的Dialog，
+如上代码就构建了一个全功能的Dialog，如下图，需要注意的是，默认设置列表后就不会显示底部按钮，如果有特殊需要，只需要调整链式调用顺序即可。
+还有需要注意的是获取ImageView前必须先show，show操作中增加了初始化操作，不然直接get是null。
 
 ![](https://github.com/hnsugar/SuperDialog/blob/master/image/0.png)
+![](https://github.com/hnsugar/SuperDialog/blob/master/image/1.png)
+![](https://github.com/hnsugar/SuperDialog/blob/master/image/2.png)
+![](https://github.com/hnsugar/SuperDialog/blob/master/image/3.png)
+![](https://github.com/hnsugar/SuperDialog/blob/master/image/4.png)
+![](https://github.com/hnsugar/SuperDialog/blob/master/image/5.png)
+![](https://github.com/hnsugar/SuperDialog/blob/master/image/6.png)
+![](https://github.com/hnsugar/SuperDialog/blob/master/image/7.png)
+
