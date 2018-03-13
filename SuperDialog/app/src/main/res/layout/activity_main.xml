@@ -46,9 +46,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="test7"
-        android:text="带图片的Dialog" />    <Button
+        android:text="带图片的Dialog" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="test8"
+        android:text="有列表的Dialog" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="test9"
+        android:text="无取消按钮的输入框Dialog" />
+
+    <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:onClick="test8"
-    android:text="有列表的Dialog" />
+    android:onClick="test10"
+    android:text="有取消按钮的输入框Dialog" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="test11"
+        android:text="自定义等待Dialog" />
 </android.support.v7.widget.LinearLayoutCompat>

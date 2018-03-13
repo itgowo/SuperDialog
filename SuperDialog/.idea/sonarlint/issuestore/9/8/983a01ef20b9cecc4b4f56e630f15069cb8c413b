@@ -1,0 +1,13 @@
+
+€"squid:ClassVariableVisibilityCheck"TMake itemName a static final constant or non-public and provide accessors if needed.(üáñ
+tsquid:S1450"XRemove the "titleView" field and declare it as a local variable in the relevant methods.(×³ÜÀ8²ø ª ,
+osquid:S1450"ZRemove the "contentView" field and declare it as a local variable in the relevant methods.(˜£¸
+lsquid:S00114"QRename this interface name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ÜöÿÄıÿÿÿÿ
+qsquid:S1450"WRemove the "listView" field and declare it as a local variable in the relevant methods.(¯¤½ñûÿÿÿÿ
+ssquid:S00114"QRename this interface name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(×¿æŞÿÿÿÿÿ8—Û¯ª ,
+ysquid:S1450"XRemove the "inputView" field and declare it as a local variable in the relevant methods.(öñ—…ùÿÿÿÿ8ŒÚ©ª ,
+"squid:ClassVariableVisibilityCheck"PMake icon a static final constant or non-public and provide accessors if needed.(¸«é­şÿÿÿÿ
+Vsquid:S1126"AReplace this if-then-else statement by a single return statement.(·İ’›
+esquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(³á…Œùÿÿÿÿ
+Osquid:S1068".Remove this unused "isShowWait" private field.(Û´îÿÿÿÿÿ8€Ü’ª ,
+vsquid:S1450"\Remove the "titleLineView" field and declare it as a local variable in the relevant methods.(‘ß¤úÿÿÿÿ

@@ -21,6 +21,7 @@ import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -32,7 +33,7 @@ import java.util.List;
  * Created by lujianchao on 2018/3/6.
  * Github：https://github.com/hnsugar/
  * WebSite：http://itgowo.com
- *
+ * <p>
  * 链式调用顺序决定显示样式，例如显示List形式，默认会禁止下面button显示，如果需要全部显示，则需要先设置list后设置button，这样参数会覆盖。
  * 这只是一个Demo，大家可以自行更改样式，因为未使用XML定义，所以只适合Android中高级开发人员练手，帮助大家学习代码控制生成drawable、selector等。
  */
@@ -46,17 +47,23 @@ public class SuperDialog extends Dialog {
     private String content;
     private String[] buttonTexts;
     private List<DialogMenuItem> dialogMenuItemList;
-    private onDialogOnClickListener listener;
+    private onDialogClickListener listener;
+    private onDialogInputListener inputListener;
+    private onDialogImageListener imageListener;
+    private onDialogProgressListener progressListener;
 
 
     private boolean isShowTitle;
+    private boolean isShowProgress;
     private boolean isShowContent;
     private boolean isShowImage;
+    private boolean isShowInput;
     private boolean isShowList;
     private boolean isShowButtonLayout = true;
 
 
-    private TextView titleview;
+    private TextView titleView;
+    private EditText inputView;
     private View titleLineView;
     private ImageView imageView;
     private TextView contentView;
@@ -124,11 +131,16 @@ public class SuperDialog extends Dialog {
             initImageView(viewRoot);
         }
 
-
+        if (isShowProgress) {
+            initProgressView(viewRoot);
+        }
         if (isShowContent) {
             initContentView(viewRoot);
         }
 
+        if (isShowInput) {
+            initInputView(viewRoot);
+        }
 
         if (isShowList && dialogMenuItemList != null) {
             initListView(viewRoot);
@@ -145,16 +157,50 @@ public class SuperDialog extends Dialog {
     }
 
     /**
+     * 等待进度
+     *
+     * @param viewRoot
+     */
+    private void initProgressView(LinearLayout viewRoot) {
+        LinearLayout root = new LinearLayout(context);
+        root.setGravity(Gravity.CENTER);
+        root.setPadding(dp2px(10), dp2px(10), dp2px(10), dp2px(10));
+        if (progressListener != null) {
+            View view = progressListener.onInitProgressView(root);
+            if (view != null) {
+                root.addView(view);
+                viewRoot.addView(root);
+            }
+        }
+    }
+
+    /**
+     * 输入框
+     */
+    private void initInputView(LinearLayout viewRoot) {
+        inputView = new EditText(context);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(dp2px(15), dp2px(5), dp2px(15), dp2px(5));
+        inputView.setLayoutParams(layoutParams);
+        inputView.setTextColor(contentTextColor);
+        inputView.setTextSize(contentTextSize);
+        if (inputListener != null) {
+            inputListener.onInitEditText(inputView);
+        }
+        viewRoot.addView(inputView);
+    }
+
+    /**
      * 标题
      */
     private void initTitleView(LinearLayout viewRoot) {
-        titleview = new TextView(context);
-        titleview.setText(title);
-        titleview.setGravity(Gravity.CENTER);
-        titleview.setTextSize(titleTextSize);
-        titleview.setTextColor(titleTextColor);
-        titleview.setPadding(dp2px(5), dp2px(5), dp2px(5), dp2px(5));
-        viewRoot.addView(titleview);
+        titleView = new TextView(context);
+        titleView.setText(title);
+        titleView.setGravity(Gravity.CENTER);
+        titleView.setTextSize(titleTextSize);
+        titleView.setTextColor(titleTextColor);
+        titleView.setPadding(dp2px(5), dp2px(5), dp2px(5), dp2px(5));
+        viewRoot.addView(titleView);
     }
 
     /**
@@ -177,6 +223,9 @@ public class SuperDialog extends Dialog {
         layoutParams.setMargins(dp2px(15), dp2px(5), dp2px(15), dp2px(5));
         imageView.setLayoutParams(layoutParams);
         viewRoot.addView(imageView);
+        if (imageListener != null) {
+            imageListener.onInitImageView(imageView);
+        }
     }
 
     /**
@@ -247,22 +296,30 @@ public class SuperDialog extends Dialog {
             textView.setMinHeight(50);
             textView.setTextColor(buttonTextColor);
             textView.setTextSize(buttonTextSize);
-            if (i == 0) {
-                textView.setBackgroundDrawable(getButtonBackground(true, false, true));
-            } else if (i == buttonTexts.length - 1) {
-                textView.setBackgroundDrawable(getButtonBackground(false, true, true));
+            if (buttonTexts.length == 1) {
+                textView.setBackgroundDrawable(getButtonBackground(true, true, true));
             } else {
-                textView.setBackgroundDrawable(getButtonBackground(false, false, true));
+                if (i == 0) {
+                    textView.setBackgroundDrawable(getButtonBackground(true, false, true));
+                } else if (i == buttonTexts.length - 1) {
+                    textView.setBackgroundDrawable(getButtonBackground(false, true, true));
+                } else {
+                    textView.setBackgroundDrawable(getButtonBackground(false, false, true));
+                }
             }
             textView.setGravity(Gravity.CENTER);
             textView.setText(buttonTexts[i]);
             final int finalI = i;
+            final int finalI1 = i;
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dismiss();
-                    if (listener != null) {
+                    if (listener != null && !isShowInput) {
                         listener.click(true, finalI);
+                    }
+                    if (inputListener != null && isShowInput) {
+                        inputListener.onComplete(finalI1, inputView.getText().toString());
                     }
                 }
             });
@@ -284,7 +341,11 @@ public class SuperDialog extends Dialog {
     private GradientDrawable getButtonBackground(boolean isFirstButton, boolean isLastButton, boolean isStroke) {
         GradientDrawable gd = new GradientDrawable();
         if (isFirstButton) {
-            gd.setCornerRadii(new float[]{0, 0, 0, 0, 0, 0, dp2px(6), dp2px(6)});
+            if (isLastButton) {
+                gd.setCornerRadii(new float[]{0, 0, 0, 0, dp2px(6), dp2px(6), dp2px(6), dp2px(6)});
+            } else {
+                gd.setCornerRadii(new float[]{0, 0, 0, 0, 0, 0, dp2px(6), dp2px(6)});
+            }
         } else if (isLastButton) {
             gd.setCornerRadii(new float[]{0, 0, 0, 0, dp2px(6), dp2px(6), 0, 0});
         }
@@ -317,19 +378,31 @@ public class SuperDialog extends Dialog {
         colorStateList = new ColorStateList(states, colors);
     }
 
-    public String getTitle() {
-        return title;
-    }
-
     public SuperDialog setTitle(String title) {
         this.title = title;
         isShowTitle = isNotEmpty(title);
         return this;
     }
 
-    public ImageView getImageView() {
+
+    public SuperDialog setInputListener(onDialogInputListener inputListener) {
+        isShowInput = true;
+        this.inputListener = inputListener;
+        return this;
+    }
+
+
+    public SuperDialog setImageListener(onDialogImageListener imageListener) {
         isShowImage = true;
-        return imageView;
+        this.imageListener = imageListener;
+        return this;
+    }
+
+
+    public SuperDialog setProgressListener(onDialogProgressListener progressListener) {
+        isShowProgress = true;
+        this.progressListener = progressListener;
+        return this;
     }
 
     public SuperDialog setShowImage() {
@@ -337,9 +410,11 @@ public class SuperDialog extends Dialog {
         return this;
     }
 
-    public String getContent() {
-        return content;
+    public SuperDialog setShowButtonLayout(boolean showButtonLayout) {
+        isShowButtonLayout = showButtonLayout;
+        return this;
     }
+
 
     public SuperDialog setContent(String content) {
         this.content = content;
@@ -347,9 +422,6 @@ public class SuperDialog extends Dialog {
         return this;
     }
 
-    public List<DialogMenuItem> getDialogMenuItemList() {
-        return dialogMenuItemList;
-    }
 
     public SuperDialog setDialogMenuItemList(List<DialogMenuItem> dialogMenuItemList) {
         isShowList = true;
@@ -358,9 +430,6 @@ public class SuperDialog extends Dialog {
         return this;
     }
 
-    public String[] getButtonTexts() {
-        return buttonTexts;
-    }
 
     public SuperDialog setButtonTexts(String... buttonTexts) {
         this.buttonTexts = buttonTexts;
@@ -368,63 +437,41 @@ public class SuperDialog extends Dialog {
         return this;
     }
 
-    public onDialogOnClickListener getListener() {
-        return listener;
-    }
-
-    public SuperDialog setListener(onDialogOnClickListener listener) {
+    public SuperDialog setListener(onDialogClickListener listener) {
         this.listener = listener;
         return this;
     }
 
-    public int getTitleTextSize() {
-        return titleTextSize;
-    }
 
     public SuperDialog setTitleTextSize(int titleTextSize) {
         this.titleTextSize = titleTextSize;
         return this;
     }
 
-    public int getTitleTextColor() {
-        return titleTextColor;
-    }
 
     public SuperDialog setTitleTextColor(int titleTextColor) {
         this.titleTextColor = titleTextColor;
         return this;
     }
 
-    public int getContentTextSize() {
-        return contentTextSize;
-    }
 
     public SuperDialog setContentTextSize(int contentTextSize) {
         this.contentTextSize = contentTextSize;
         return this;
     }
 
-    public int getContentTextColor() {
-        return contentTextColor;
-    }
 
     public SuperDialog setContentTextColor(int contentTextColor) {
         this.contentTextColor = contentTextColor;
         return this;
     }
 
-    public int getButtonTextSize() {
-        return buttonTextSize;
-    }
 
     public SuperDialog setButtonTextSize(int buttonTextSize) {
         this.buttonTextSize = buttonTextSize;
         return this;
     }
 
-    public int getButtonTextColor() {
-        return buttonTextColor;
-    }
 
     public SuperDialog setButtonTextColor(int buttonTextColor) {
         this.buttonTextColor = buttonTextColor;
@@ -446,8 +493,23 @@ public class SuperDialog extends Dialog {
         return true;
     }
 
-    public interface onDialogOnClickListener {
+    public interface onDialogClickListener {
         void click(boolean isButtonClick, int position);
+    }
+
+    public interface onDialogInputListener {
+        void onInitEditText(EditText inputView);
+
+        void onComplete(int buttonIndex, String text);
+    }
+
+
+    public interface onDialogImageListener {
+        void onInitImageView(ImageView imageView);
+    }
+
+    public interface onDialogProgressListener {
+        View onInitProgressView(LinearLayout viewGroup);
     }
 
     class ListDialogAdapter extends BaseAdapter {
