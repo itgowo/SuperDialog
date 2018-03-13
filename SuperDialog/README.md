@@ -20,21 +20,10 @@ data目录文件管理，就这样一个库同时具备web服务器和数据接�
 
 ### 正题
 
-            final SuperDialog superDialog = new SuperDialog(this);
-            ArrayList<SuperDialog.DialogMenuItem> menuItems = new ArrayList<>();
-            menuItems.add(new SuperDialog.DialogMenuItem("收藏", R.mipmap.ic_winstyle_favor));
-            menuItems.add(new SuperDialog.DialogMenuItem("下载", R.mipmap.ic_winstyle_download));
-            menuItems.add(new SuperDialog.DialogMenuItem("分享", R.mipmap.ic_winstyle_share));
-            menuItems.add(new SuperDialog.DialogMenuItem("删除", R.mipmap.ic_winstyle_delete));
-            menuItems.add(new SuperDialog.DialogMenuItem("歌手", R.mipmap.ic_winstyle_artist));
-            menuItems.add(new SuperDialog.DialogMenuItem("专辑", R.mipmap.ic_winstyle_album));
-            
-            superDialog.setTitle(title).setContent(content).setButtonTexts(buttonStrs).setListener(listener).setShowImage().setDialogMenuItemList(menuItems).setButtonTexts(buttonStrs).show();
-            Glide.with(superDialog.getImageView()).load("https://www.baidu.com/img/fnj_96d95207b4a706738f1b8be3b41ea9f3.gif").into(superDialog.getImageView()););
-            
-            
-如上代码就构建了一个全功能的Dialog，如下图，需要注意的是，默认设置列表后就不会显示底部按钮，如果有特殊需要，只需要调整链式调用顺序即可。
-还有需要注意的是获取ImageView前必须先show，show操作中增加了初始化操作，不然直接get是null。
+
+如下全功能展示例子代码就构建了一个全功能的Dialog，如下图，需要注意的是，默认设置列表后就不会显示底部按钮，如果有特殊需要，只需要调整链式调用顺序即可。
+还有需要注意的是获取ImageView前必须先show，show操作中增加了初始化操作，不然直接get是null。buttonText设置了有奇效，很多地方都可以混用，但是我希望
+开发者按套路出牌，设置成正常的Dialog:-D。
 
 
 ### 举个栗子：
@@ -115,7 +104,7 @@ data目录文件管理，就这样一个库同时具备web服务器和数据接�
 
 #### 两个按钮
 
-   public void test4(View view) {
+     public void test4(View view) {
         final SuperDialog superDialog = new SuperDialog(this);
         superDialog.setTitle("2个button").setContent("纯代码编写，没有使用XML").setListener(listener).setButtonTexts(new String[]{"按钮1", "按钮2"}).show();
         superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
