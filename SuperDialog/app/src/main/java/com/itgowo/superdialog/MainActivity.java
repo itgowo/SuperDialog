@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
             public void onInitImageView(ImageView imageView) {
                 Glide.with(imageView).load("https://www.baidu.com/img/fnj_96d95207b4a706738f1b8be3b41ea9f3.gif").into(imageView);
             }
-        }).setProgressListener(new SuperDialog.onDialogProgressListener() {
+        }).setCustomViewListener(new SuperDialog.onDialogCustomViewListener() {
             @Override
-            public View onInitProgressView(LinearLayout viewGroup) {
+            public View onInitCustomView(LinearLayout viewGroup) {
                 return new ProgressBar(viewGroup.getContext());
             }
         }).setInputListener(new SuperDialog.onDialogInputListener() {
@@ -247,9 +247,9 @@ public class MainActivity extends AppCompatActivity {
     public void test11(View view) {
         final SuperDialog superDialog = new SuperDialog(this);
 
-        superDialog.setTitle("进度/等待，自定义View Dialog").setContent("处理进度55%").setShowButtonLayout(false).setProgressListener(new SuperDialog.onDialogProgressListener() {
+        superDialog.setTitle("进度/等待，自定义View Dialog").setContent("处理进度55%").setShowButtonLayout(false).setCustomViewListener(new SuperDialog.onDialogCustomViewListener() {
             @Override
-            public View onInitProgressView(LinearLayout viewGroup) {
+            public View onInitCustomView(LinearLayout viewGroup) {
                 return new ProgressBar(viewGroup.getContext());
             }
         }).show();

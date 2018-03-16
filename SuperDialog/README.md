@@ -47,7 +47,7 @@ data目录文件管理，就这样一个库同时具备web服务器和数据接�
             }
         }).setProgressListener(new SuperDialog.onDialogProgressListener() {
             @Override
-            public View onInitProgressView(LinearLayout viewGroup) {
+            public View onInitCustomView(LinearLayout viewGroup) {
                 return new ProgressBar(viewGroup.getContext());
             }
         }).setInputListener(new SuperDialog.onDialogInputListener() {
@@ -260,7 +260,7 @@ data目录文件管理，就这样一个库同时具备web服务器和数据接�
 
         superDialog.setTitle("进度/等待Dialog").setContent("处理进度55%").setShowButtonLayout(false).setProgressListener(new SuperDialog.onDialogProgressListener() {
             @Override
-            public View onInitProgressView(LinearLayout viewGroup) {
+            public View onInitCustomView(LinearLayout viewGroup) {
                 return new ProgressBar(viewGroup.getContext());
             }
         }).show();

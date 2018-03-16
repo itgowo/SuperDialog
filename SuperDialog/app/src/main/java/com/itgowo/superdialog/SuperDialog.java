@@ -50,7 +50,7 @@ public class SuperDialog extends Dialog {
     private onDialogClickListener listener;
     private onDialogInputListener inputListener;
     private onDialogImageListener imageListener;
-    private onDialogProgressListener progressListener;
+    private onDialogCustomViewListener customViewListener;
 
 
     private boolean isShowTitle;
@@ -165,8 +165,8 @@ public class SuperDialog extends Dialog {
         LinearLayout root = new LinearLayout(context);
         root.setGravity(Gravity.CENTER);
         root.setPadding(dp2px(10), dp2px(10), dp2px(10), dp2px(10));
-        if (progressListener != null) {
-            View view = progressListener.onInitProgressView(root);
+        if (customViewListener != null) {
+            View view = customViewListener.onInitCustomView(root);
             if (view != null) {
                 root.addView(view);
                 viewRoot.addView(root);
@@ -399,9 +399,9 @@ public class SuperDialog extends Dialog {
     }
 
 
-    public SuperDialog setProgressListener(onDialogProgressListener progressListener) {
+    public SuperDialog setCustomViewListener(onDialogCustomViewListener customViewListener) {
         isShowProgress = true;
-        this.progressListener = progressListener;
+        this.customViewListener = customViewListener;
         return this;
     }
 
@@ -508,8 +508,8 @@ public class SuperDialog extends Dialog {
         void onInitImageView(ImageView imageView);
     }
 
-    public interface onDialogProgressListener {
-        View onInitProgressView(LinearLayout viewGroup);
+    public interface onDialogCustomViewListener {
+        View onInitCustomView(LinearLayout viewGroup);
     }
 
     class ListDialogAdapter extends BaseAdapter {
