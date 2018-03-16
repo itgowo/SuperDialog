@@ -1,6 +1,8 @@
 
-|squid:S1192"bDefine a constant instead of duplicating this literal "çº¯ä»£ç ç¼–å†™ï¼Œæ²¡æœ‰ä½¿ç”¨XML" 5 times.(è¦ùÿÿÿÿ
-squid:S1192"ƒDefine a constant instead of duplicating this literal "https://www.baidu.com/img/fnj_96d95207b4a706738f1b8be3b41ea9f3.gif" 3 times.(¾ÊÆàşÿÿÿÿ
+|squid:S1192"bDefine a constant instead of duplicating this literal "çº¯ä»£ç ç¼–å†™ï¼Œæ²¡æœ‰ä½¿ç”¨XML" 7 times.(è¦ùÿÿÿÿ
+Tsquid:S3878"8Remove this array creation and simply pass the elements.(¬İ®±8–‚Àö¡,
+Tsquid:S3878"8Remove this array creation and simply pass the elements.(öË€Œ8Ñ¸·ö¡,
+Tsquid:S3878"8Remove this array creation and simply pass the elements.(£Ä‡8Ñ¸·ö¡,
 jsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(²Ú±8•¤ ,
-Zsquid:UnusedPrivateMethod"2Remove this unused private "testNewDialog" method.(˜éÜûÿÿÿÿ
-\squid:S1192"GDefine a constant instead of duplicating this literal "cancel" 8 times.(†«øš
+]squid:S1192"HDefine a constant instead of duplicating this literal "cancel" 11 times.(†«øš
+Ysquid:S3878"8Remove this array creation and simply pass the elements.(­»º«ùÿÿÿÿ8Ñ¸·ö¡,
