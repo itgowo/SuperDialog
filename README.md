@@ -1,5 +1,13 @@
 # SuperDialog
-一个类纯代码实现多功能Dialog，list、image和可变参数button数量
+一个类文件不到600行纯代码实现多功能Dialog，list、image、input输入框、Progress自定义View和可变参数button数量
+
+Github:https://github.com/hnsugar/
+
+http://itgowo.com
+
+QQ:1264957104
+
+Email:lujianchao@itgowo.com
 
 ### 为什么写纯代码Dialog？
 
