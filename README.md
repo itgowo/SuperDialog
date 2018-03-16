@@ -43,121 +43,123 @@ data目录文件管理，就这样一个库同时具备web服务器和数据接�
 
 ### 举个栗子：
 #### 全功能展示（链式调用顺序影响具体显示和功能效果）
-public void test1(View view) {
-final SuperDialog superDialog = new SuperDialog(this);
 
-ArrayList<SuperDialog.DialogMenuItem> menuItems = new ArrayList<>();
-menuItems.add(new SuperDialog.DialogMenuItem("收藏", R.mipmap.ic_winstyle_favor));
-menuItems.add(new SuperDialog.DialogMenuItem("下载", R.mipmap.ic_winstyle_download));
-menuItems.add(new SuperDialog.DialogMenuItem("分享", R.mipmap.ic_winstyle_share));
-menuItems.add(new SuperDialog.DialogMenuItem("删除", R.mipmap.ic_winstyle_delete));
-menuItems.add(new SuperDialog.DialogMenuItem("歌手", R.mipmap.ic_winstyle_artist));
-menuItems.add(new SuperDialog.DialogMenuItem("专辑", R.mipmap.ic_winstyle_album));
+    public void test1(View view) {
+        final SuperDialog superDialog = new SuperDialog(this);
 
-superDialog.setTitle("全功能展示Dialog").setContent("纯代码编写，没有使用XML.")
-.setListener(listener).setShowImage().setDialogMenuItemList(menuItems).setButtonTexts(new String[]{"按钮1", "按钮2", "按钮3", "按钮4"}).setImageListener(new SuperDialog.onDialogImageListener() {
-@Override
-public void onInitImageView(ImageView imageView) {
-Glide.with(imageView).load("https://www.baidu.com/img/fnj_96d95207b4a706738f1b8be3b41ea9f3.gif").into(imageView);
-}
-}).setCustomViewListener(new SuperDialog.onDialogCustomViewListener() {
-@Override
-public View onInitCustomView(LinearLayout viewGroup) {
-return new ProgressBar(viewGroup.getContext());
-}
-}).setInputListener(new SuperDialog.onDialogInputListener() {
-@Override
-public void onInitEditText(EditText inputView) {
-inputView.setHint("自定义设置");
-}
+        ArrayList<SuperDialog.DialogMenuItem> menuItems = new ArrayList<>();
+        menuItems.add(new SuperDialog.DialogMenuItem("收藏", R.mipmap.ic_winstyle_favor));
+        menuItems.add(new SuperDialog.DialogMenuItem("下载", R.mipmap.ic_winstyle_download));
+        menuItems.add(new SuperDialog.DialogMenuItem("分享", R.mipmap.ic_winstyle_share));
+        menuItems.add(new SuperDialog.DialogMenuItem("删除", R.mipmap.ic_winstyle_delete));
+        menuItems.add(new SuperDialog.DialogMenuItem("歌手", R.mipmap.ic_winstyle_artist));
+        menuItems.add(new SuperDialog.DialogMenuItem("专辑", R.mipmap.ic_winstyle_album));
 
-@Override
-public void onComplete(int buttonIndex, String text) {
-Toast.makeText(getApplicationContext(), "输入框：" + text, Toast.LENGTH_SHORT).show();
-}
-}).show();
+        superDialog.setTitle("全功能展示Dialog").setContent("纯代码编写，没有使用XML.")
+                .setListener(listener).setShowImage().setDialogMenuItemList(menuItems).setButtonTexts(new String[]{"按钮1", "按钮2", "按钮3", "按钮4"}).setImageListener(new SuperDialog.onDialogImageListener() {
+            @Override
+            public void onInitImageView(ImageView imageView) {
+                Glide.with(imageView).load("https://www.baidu.com/img/fnj_96d95207b4a706738f1b8be3b41ea9f3.gif").into(imageView);
+            }
+        }).setCustomViewListener(new SuperDialog.onDialogCustomViewListener() {
+            @Override
+            public View onInitCustomView(LinearLayout viewGroup) {
+                return new ProgressBar(viewGroup.getContext());
+            }
+        }).setInputListener(new SuperDialog.onDialogInputListener() {
+            @Override
+            public void onInitEditText(EditText inputView) {
+                inputView.setHint("自定义设置");
+            }
 
-superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-@Override
-public void onCancel(DialogInterface dialog) {
-Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
-}
-});
-}
+            @Override
+            public void onComplete(int buttonIndex, String text) {
+                Toast.makeText(getApplicationContext(), "输入框：" + text, Toast.LENGTH_SHORT).show();
+            }
+        }).show();
 
+        superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 ![0.png](https://github.com/hnsugar/SuperDialog/blob/master/image/0.png)
 
 #### 普通Dialog
 
-public void test2(View view) {
-SuperDialog superDialog = new SuperDialog(this);
-superDialog.setTitle("提示框类型Dialog").setContent("纯代码编写，没有使用XML").setListener(listener).show();
-superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-@Override
-public void onCancel(DialogInterface dialog) {
-Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
-}
-});
-}
+    public void test2(View view) {
+        SuperDialog superDialog = new SuperDialog(this);
+        superDialog.setTitle("提示框类型Dialog").setContent("纯代码编写，没有使用XML").setListener(listener).show();
+        superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 !![1.png](https://github.com/hnsugar/SuperDialog/blob/master/image/1.png)
 
 #### 无标题Dialog
 
-public void test3(View view) {
-final SuperDialog superDialog = new SuperDialog(this);
-superDialog.setContent("纯代码编写，没有使用XML\r\n没有标题").setListener(listener).show();
-superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-@Override
-public void onCancel(DialogInterface dialog) {
-Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
-}
-});
-}
+    public void test3(View view) {
+        final SuperDialog superDialog = new SuperDialog(this);
+        superDialog.setContent("纯代码编写，没有使用XML\r\n没有标题").setListener(listener).show();
+        superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 ![2.png](https://github.com/hnsugar/SuperDialog/blob/master/image/2.png)
 
 #### 两个按钮
 
-public void test4(View view) {
-final SuperDialog superDialog = new SuperDialog(this);
-superDialog.setTitle("2个button").setContent("纯代码编写，没有使用XML").setListener(listener).setButtonTexts(new String[]{"按钮1", "按钮2"}).show();
-superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-@Override
-public void onCancel(DialogInterface dialog) {
-Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
-}
-});
-}
+    public void test4(View view) {
+        final SuperDialog superDialog = new SuperDialog(this);
+        superDialog.setTitle("2个button").setContent("纯代码编写，没有使用XML").setListener(listener).setButtonTexts(new String[]{"按钮1", "按钮2"}).show();
+        superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 ![3.png](https://github.com/hnsugar/SuperDialog/blob/master/image/3.png)
 
 #### 三个按钮
-public void test5(View view) {
-final SuperDialog superDialog = new SuperDialog(this);
-superDialog.setTitle("3个button").setContent("纯代码编写，没有使用XML").setListener(listener).setButtonTexts(new String[]{"按钮1", "按钮2", "按钮3"}).show();
-superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-@Override
-public void onCancel(DialogInterface dialog) {
-Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
-}
-});
-}
+
+    public void test5(View view) {
+        final SuperDialog superDialog = new SuperDialog(this);
+        superDialog.setTitle("3个button").setContent("纯代码编写，没有使用XML").setListener(listener).setButtonTexts(new String[]{"按钮1", "按钮2", "按钮3"}).show();
+        superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 ![4.png](https://github.com/hnsugar/SuperDialog/blob/master/image/4.png)
 
 #### 可变参数设置多个按钮
-public void test6(View view) {
-final SuperDialog superDialog = new SuperDialog(this);
-superDialog.setTitle("可变参数N个button").setContent("纯代码编写，没有使用XML\r\n.setButtonTexts(\"按钮1\", \"按钮2\", \"按钮3\", \"按钮4\", \"按钮5\", \"按钮6\")").setListener(listener).setButtonTexts("按钮1", "按钮2", "按钮3", "按钮4", "按钮5", "按钮6").show();
-superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-@Override
-public void onCancel(DialogInterface dialog) {
-Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
-}
-});
-}
+
+    public void test6(View view) {
+        final SuperDialog superDialog = new SuperDialog(this);
+        superDialog.setTitle("可变参数N个button").setContent("纯代码编写，没有使用XML\r\n.setButtonTexts(\"按钮1\", \"按钮2\", \"按钮3\", \"按钮4\", \"按钮5\", \"按钮6\")").setListener(listener).setButtonTexts("按钮1", "按钮2", "按钮3", "按钮4", "按钮5", "按钮6").show();
+        superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
 ![5.png](https://github.com/hnsugar/SuperDialog/blob/master/image/5.png)
@@ -166,48 +168,48 @@ Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
 #### 带图片文字
 ###### 布局addView后回调onInitImageView(),返回ImageView可以自己处理事件和效果
 
-public void test7(View view) {
-final SuperDialog superDialog = new SuperDialog(this);
-superDialog.setTitle("带图片Dialog").setContent("纯代码编写，没有使用XML").setListener(listener).setShowImage().setImageListener(new SuperDialog.onDialogImageListener() {
-@Override
-public void onInitImageView(ImageView imageView) {
-Glide.with(imageView).load("https://www.baidu.com/img/fnj_96d95207b4a706738f1b8be3b41ea9f3.gif").into(imageView);
-}
-}).setButtonTexts(new String[]{"按钮1", "按钮2", "按钮3", "按钮4"}).show();
+    public void test7(View view) {
+        final SuperDialog superDialog = new SuperDialog(this);
+        superDialog.setTitle("带图片Dialog").setContent("纯代码编写，没有使用XML").setListener(listener).setShowImage().setImageListener(new SuperDialog.onDialogImageListener() {
+            @Override
+            public void onInitImageView(ImageView imageView) {
+                Glide.with(imageView).load("https://www.baidu.com/img/fnj_96d95207b4a706738f1b8be3b41ea9f3.gif").into(imageView);
+            }
+        }).setButtonTexts(new String[]{"按钮1", "按钮2", "按钮3", "按钮4"}).show();
 
-superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-@Override
-public void onCancel(DialogInterface dialog) {
-Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
-}
-});
-}
+        superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 ![6.png](https://github.com/hnsugar/SuperDialog/blob/master/image/6.png)
 
 
 #### 列表
 
-public void test8(View view) {
-final SuperDialog superDialog = new SuperDialog(this);
+    public void test8(View view) {
+        final SuperDialog superDialog = new SuperDialog(this);
 
-ArrayList<SuperDialog.DialogMenuItem> menuItems = new ArrayList<>();
-menuItems.add(new SuperDialog.DialogMenuItem("收藏", R.mipmap.ic_winstyle_favor));
-menuItems.add(new SuperDialog.DialogMenuItem("下载", R.mipmap.ic_winstyle_download));
-menuItems.add(new SuperDialog.DialogMenuItem("分享", R.mipmap.ic_winstyle_share));
-menuItems.add(new SuperDialog.DialogMenuItem("删除", R.mipmap.ic_winstyle_delete));
-menuItems.add(new SuperDialog.DialogMenuItem("歌手", R.mipmap.ic_winstyle_artist));
-menuItems.add(new SuperDialog.DialogMenuItem("专辑", R.mipmap.ic_winstyle_album));
+        ArrayList<SuperDialog.DialogMenuItem> menuItems = new ArrayList<>();
+        menuItems.add(new SuperDialog.DialogMenuItem("收藏", R.mipmap.ic_winstyle_favor));
+        menuItems.add(new SuperDialog.DialogMenuItem("下载", R.mipmap.ic_winstyle_download));
+        menuItems.add(new SuperDialog.DialogMenuItem("分享", R.mipmap.ic_winstyle_share));
+        menuItems.add(new SuperDialog.DialogMenuItem("删除", R.mipmap.ic_winstyle_delete));
+        menuItems.add(new SuperDialog.DialogMenuItem("歌手", R.mipmap.ic_winstyle_artist));
+        menuItems.add(new SuperDialog.DialogMenuItem("专辑", R.mipmap.ic_winstyle_album));
 
 
-superDialog.setTitle("列表的Dialog").setContent("纯代码编写，没有使用XML").setListener(listener).setDialogMenuItemList(menuItems).show();
-superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-@Override
-public void onCancel(DialogInterface dialog) {
-Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
-}
-});
-}
+        superDialog.setTitle("列表的Dialog").setContent("纯代码编写，没有使用XML").setListener(listener).setDialogMenuItemList(menuItems).show();
+        superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 ![7.png](https://github.com/hnsugar/SuperDialog/blob/master/image/7.png)
 
@@ -215,28 +217,28 @@ Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
 ###### 布局addView前回调onInitEditText(),返回edittext可以设置事件及效果。
 ###### 未设置setButtonTexts()则进入判断，如果是输入模式且文本数组为空，则默认文本数组为{"确定"}
 
-public void test9(View view) {
-final SuperDialog superDialog = new SuperDialog(this);
+    public void test9(View view) {
+        final SuperDialog superDialog = new SuperDialog(this);
 
 
-superDialog.setTitle("输入框Dialog").setContent("纯代码编写，没有使用XML").setInputListener(new SuperDialog.onDialogInputListener() {
-@Override
-public void onInitEditText(EditText inputView) {
-inputView.setHint("请输入文字");
-}
+        superDialog.setTitle("输入框Dialog").setContent("纯代码编写，没有使用XML").setInputListener(new SuperDialog.onDialogInputListener() {
+            @Override
+            public void onInitEditText(EditText inputView) {
+                inputView.setHint("请输入文字");
+            }
 
-@Override
-public void onComplete(int buttonIndex, String text) {
-Toast.makeText(getApplicationContext(), "输入框：" + text, Toast.LENGTH_SHORT).show();
-}
-}).show();
-superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-@Override
-public void onCancel(DialogInterface dialog) {
-Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
-}
-});
-}
+            @Override
+            public void onComplete(int buttonIndex, String text) {
+                Toast.makeText(getApplicationContext(), "输入框：" + text, Toast.LENGTH_SHORT).show();
+            }
+        }).show();
+        superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 ![8.png](https://github.com/hnsugar/SuperDialog/blob/master/image/8.png)
 
@@ -244,53 +246,53 @@ Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
 #### 自定义多按钮输入Dialog
 ###### 按钮受setButtonTexts()影响，设置数据会按顺序显示，onComplete()回调会返回文本和点击按钮位置，顺序与设置一致。
 
-public void test10(View view) {
-final SuperDialog superDialog = new SuperDialog(this);
+    public void test10(View view) {
+        final SuperDialog superDialog = new SuperDialog(this);
 
 
-superDialog.setTitle("输入框Dialog").setContent("纯代码编写，没有使用XML").setButtonTexts("取消", "更改").setInputListener(new SuperDialog.onDialogInputListener() {
-@Override
-public void onInitEditText(EditText inputView) {
-inputView.setHint("请输入文字");
-}
+        superDialog.setTitle("输入框Dialog").setContent("纯代码编写，没有使用XML").setButtonTexts("取消", "更改").setInputListener(new SuperDialog.onDialogInputListener() {
+            @Override
+            public void onInitEditText(EditText inputView) {
+                inputView.setHint("请输入文字");
+            }
 
-@Override
-public void onComplete(int buttonIndex, String text) {
-if (buttonIndex == 0) {
-Toast.makeText(getApplicationContext(), "取消输入框：" + text, Toast.LENGTH_SHORT).show();
-} else {
-Toast.makeText(getApplicationContext(), "输入框：" + text, Toast.LENGTH_SHORT).show();
-}
-}
-}).show();
-superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-@Override
-public void onCancel(DialogInterface dialog) {
-Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
-}
-});
-}
+            @Override
+            public void onComplete(int buttonIndex, String text) {
+                if (buttonIndex == 0) {
+                    Toast.makeText(getApplicationContext(), "取消输入框：" + text, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "输入框：" + text, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).show();
+        superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 ![9.png](https://github.com/hnsugar/SuperDialog/blob/master/image/9.png)
 
 
 #### 等待/进度自定义ViewDialog
 
-public void test11(View view) {
-final SuperDialog superDialog = new SuperDialog(this);
+    public void test11(View view) {
+        final SuperDialog superDialog = new SuperDialog(this);
 
-superDialog.setTitle("进度/等待，自定义View Dialog").setContent("处理进度55%").setShowButtonLayout(false).setCustomViewListener(new SuperDialog.onDialogCustomViewListener() {
-@Override
-public View onInitCustomView(LinearLayout viewGroup) {
-return new ProgressBar(viewGroup.getContext());
-}
-}).show();
-superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-@Override
-public void onCancel(DialogInterface dialog) {
-Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
-}
-});
-}
+        superDialog.setTitle("进度/等待，自定义View Dialog").setContent("处理进度55%").setShowButtonLayout(false).setCustomViewListener(new SuperDialog.onDialogCustomViewListener() {
+            @Override
+            public View onInitCustomView(LinearLayout viewGroup) {
+                return new ProgressBar(viewGroup.getContext());
+            }
+        }).show();
+        superDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Toast.makeText(getApplicationContext(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 ![10.png](https://github.com/hnsugar/SuperDialog/blob/master/image/10.png)
