@@ -82,17 +82,38 @@ public class SuperDialog extends Dialog {
     private int buttonTextColor = Color.DKGRAY;
     private ColorStateList colorStateList;
 
+    /**
+     * 宽高比
+     */
+    private float aspectRatio = 0.6f;
+
     public SuperDialog(@NonNull Context context) {
         super(context);
         this.context = context;
         init();
     }
 
+    /**
+     * 设置宽高比例，竖屏0.6f,横屏一般2f就可以
+     * 比例为Dialog宽度和屏幕方向对应屏幕高度
+     * dialog高度由内容确定
+     *
+     * @param aspectRatio
+     * @return
+     */
+    public SuperDialog setAspectRatio(float aspectRatio) {
+        this.aspectRatio = aspectRatio;
+        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+        layoutParams.width = (int) (displayMetrics.widthPixels * aspectRatio);
+        getWindow().setAttributes(layoutParams);
+        return this;
+    }
+
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.width = displayMetrics.widthPixels / 3 * 2;
+        layoutParams.width = (int) (displayMetrics.widthPixels * aspectRatio);
         getWindow().setAttributes(layoutParams);
         getWindow().setBackgroundDrawable(null);
     }
